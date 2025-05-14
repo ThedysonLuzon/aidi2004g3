@@ -1,5 +1,8 @@
+# main.py
+
 import seaborn as sns
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 def load_penguins_data():
     """Load the penguins dataset from seaborn."""
@@ -20,7 +23,28 @@ def main():
         print(df.info())
         print("\nFirst 5 rows:")
         print(df.head())
-        print("\nDataset shape:", df.shape)
+        print("\nOriginal dataset shape:", df.shape)
+        
+        # === Data cleaning ===
+        # Drop rows with any missing values
+        df_clean = df.dropna()
+        print("\nAfter dropping missing values:", df_clean.shape)
+        
+        # === Train/Test split ===
+        train_df, test_df = train_test_split(
+            df_clean,
+            test_size=0.2,
+            random_state=42,
+            shuffle=True
+        )
+        print("\nTraining set shape:", train_df.shape)
+        print("Test set shape:", test_df.shape)
+        
+        # Optionally, inspect the splits
+        print("\nTraining set sample:")
+        print(train_df.head())
+        print("\nTest set sample:")
+        print(test_df.head())
     else:
         print("Failed to load the penguins dataset.")
 
