@@ -1,8 +1,11 @@
 # main.py
-
 import seaborn as sns
 import pandas as pd
+
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from xgboost import XGBClassifier
+
 
 def load_penguins_data():
     """Load the penguins dataset from seaborn."""
@@ -45,6 +48,16 @@ def main():
         print(train_df.head())
         print("\nTest set sample:")
         print(test_df.head())
+
+        
+        
+        # Create a default xgboost model (Person B)
+        model = XGBClassifier(use_label_encoder=False, eval_metric="mlogloss")
+        print("\nDefault XGBoost model instantiated:")
+        print(model)
+
+
+
     else:
         print("Failed to load the penguins dataset.")
 
