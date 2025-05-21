@@ -49,6 +49,12 @@ def main():
         print("\nTest set sample:")
         print(test_df.head())
 
+
+        # Create a default xgboost model (Person B)
+        model = XGBClassifier(use_label_encoder=False, eval_metric="mlogloss")
+        print("\nDefault XGBoost model instantiated:")
+        print(model)
+
     else:
         print("Failed to load the penguins dataset.")
 
