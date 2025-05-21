@@ -27,67 +27,6 @@ def main():
         print("\nFirst 5 rows:")
         print(df.head())
         print("\nOriginal dataset shape:", df.shape)
-        
-        # === Data cleaning ===
-        # Drop rows with any missing values
-        df_clean = df.dropna()
-        print("\nAfter dropping missing values:", df_clean.shape)
-        
-        # === Train/Test split ===
-        train_df, test_df = train_test_split(
-            df_clean,
-            test_size=0.2,
-            random_state=42,
-            shuffle=True
-        )
-        print("\nTraining set shape:", train_df.shape)
-        print("Test set shape:", test_df.shape)
-        
-        # Optionally, inspect the splits
-        print("\nTraining set sample:")
-        print(train_df.head())
-        print("\nTest set sample:")
-        print(test_df.head())
-
-        
-        
-        # Create a default xgboost model (Person B)
-        model = XGBClassifier(use_label_encoder=False, eval_metric="mlogloss")
-        print("\nDefault XGBoost model instantiated:")
-        print(model)
-
-        # === Preprocessing for XGBoost ===
-        # Features: numeric measurements + one-hot island & sex
-        feature_cols = [
-            "bill_length_mm", "bill_depth_mm",
-            "flipper_length_mm", "body_mass_g"
-        ]
-        # one-hot encode categorical inputs
-        X_train = pd.get_dummies(
-            train_df[feature_cols + ["island", "sex"]],
-            drop_first=True
-        )
-        X_test = pd.get_dummies(
-            test_df[feature_cols + ["island", "sex"]],
-            drop_first=True
-        )
-        # align train/test columns (in case some category wasn't present)
-        X_train, X_test = X_train.align(X_test, join="left", axis=1, fill_value=0)
-       
-        # Label-encode the target
-        le = LabelEncoder()
-        y_train = le.fit_transform(train_df["species"])
-        y_test = le.transform(test_df["species"])
-
-        # === Person C: Fit the model on the training data ===
-        model.fit(X_train, y_train)
-        print("\nModel training complete.")
-       
-        # Quick train score
-        train_score = model.score(X_train, y_train)
-        test_score = model.score(X_test, y_test)
-        print(f"Training accuracy: {train_score:.3f}")
-        print(f"Test accuracy:     {test_score:.3f}")
 
     else:
         print("Failed to load the penguins dataset.")
