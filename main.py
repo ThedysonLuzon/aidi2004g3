@@ -39,16 +39,16 @@ def main():
         )
         # align train/test columns (in case some category wasn't present)
         X_train, X_test = X_train.align(X_test, join="left", axis=1, fill_value=0)
-       
+
         # Label-encode the target
         le = LabelEncoder()
         y_train = le.fit_transform(train_df["species"])
         y_test = le.transform(test_df["species"])
- 
+
         # === Person C: Fit the model on the training data ===
         model.fit(X_train, y_train)
         print("\nModel training complete.")
-       
+
         # Quick train score
         train_score = model.score(X_train, y_train)
         test_score = model.score(X_test, y_test)
