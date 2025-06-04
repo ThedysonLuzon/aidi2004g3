@@ -28,33 +28,6 @@ def main():
         print(df.head())
         print("\nOriginal dataset shape:", df.shape)
 
-        # === Data cleaning ===
-        # Drop rows with any missing values
-        df_clean = df.dropna()
-        print("\nAfter dropping missing values:", df_clean.shape)
-        
-        # === Person A: Train/Test split ===
-        train_df, test_df = train_test_split(
-            df_clean,
-            test_size=0.2,
-            random_state=42,
-            shuffle=True
-        )
-        print("\nTraining set shape:", train_df.shape)
-        print("Test set shape:", test_df.shape)
-        
-        # Inspect the splits
-        print("\nTraining set sample:")
-        print(train_df.head())
-        print("\nTest set sample:")
-        print(test_df.head())
-
-
-        # Create a default xgboost model (Person B)
-        model = XGBClassifier(use_label_encoder=False, eval_metric="mlogloss")
-        print("\nDefault XGBoost model instantiated:")
-        print(model)
-
     else:
         print("Failed to load the penguins dataset.")
 
