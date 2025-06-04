@@ -48,7 +48,6 @@ def main():
         print(train_df.head())
         print("\nTest set sample:")
         print(test_df.head())
-
     else:
         print("Failed to load the penguins dataset.")
 
