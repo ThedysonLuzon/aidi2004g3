@@ -28,6 +28,13 @@ def main():
         print(df.head())
         print("\nOriginal dataset shape:", df.shape)
 
+
+        # Create a default xgboost model (Person B)
+        model = XGBClassifier(use_label_encoder=False, eval_metric="mlogloss")
+        print("\nDefault XGBoost model instantiated:")
+        print(model)
+
+
         # === Data cleaning ===
         # Drop rows with any missing values
         df_clean = df.dropna()
@@ -48,6 +55,7 @@ def main():
         print(train_df.head())
         print("\nTest set sample:")
         print(test_df.head())
+
     else:
         print("Failed to load the penguins dataset.")
 
